@@ -1,0 +1,53 @@
+schema_version: 1
+
+context:
+  name: pypsrp
+  version: 0.9.0
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/pypsrp-${{ version }}.tar.gz
+  sha256: 0b49ec6b9910d7a76cb1e1dd7c3e01603f492ed37609994e1eaff5f80c9ff1dd
+
+build:
+  number: 1
+  noarch: python
+  script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+
+requirements:
+  host:
+    - python ${{ python_min }}.*
+    - pip
+    - setuptools >=77.0.0
+  run:
+    - python >=${{ python_min }}
+    - cryptography >=3.1
+    - pyspnego >=0.7.0,<1.0.0
+    - requests >=2.27.0
+
+tests:
+  - python:
+      imports:
+        - pypsrp
+      python_version: ${{ python_min }}.*
+  - requirements:
+      run:
+        - pip
+        - python ${{ python_min }}.*
+    script:
+      - pip check
+
+about:
+  summary: PowerShell Remoting Protocol and WinRM for Python
+  license: MIT
+  license_file: LICENSE
+  homepage: https://github.com/jborean93/pypsrp
+  repository: https://github.com/jborean93/pypsrp
+  documentation: https://github.com/jborean93/pypsrp
+
+extra:
+  recipe-maintainers:
+    - xylar
