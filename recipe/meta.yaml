@@ -1,5 +1,5 @@
 {% set name = "pypsrp" %}
-{% set version = "0.8.1" %}
+{% set version = "0.9.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,23 +7,23 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/pypsrp-{{ version }}.tar.gz
-  sha256: f5500acd11dfe742d51b7fbb61321ba721038a300d67763dc52babe709db65e7
+  sha256: 0b49ec6b9910d7a76cb1e1dd7c3e01603f492ed37609994e1eaff5f80c9ff1dd
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 1
+  number: 0
 
 requirements:
   host:
     - python {{ python_min }}
     - pip
-    - setuptools
+    - setuptools >=77.0.0
   run:
     - python >={{ python_min }}
-    - cryptography
-    - pyspnego <1.0.0
-    - requests >=2.9.1
+    - cryptography >=3.1
+    - pyspnego >=0.7.0,<1.0.0
+    - requests >=2.27.0
 
 test:
   imports:
